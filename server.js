@@ -13,6 +13,9 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;
 
+//convert
+var convert = require('./app/scripts/convert');
+
 // ROUTES
 // ========================
 var router = express.Router();
@@ -27,32 +30,15 @@ router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
-// routes that end in unix
-// ======================
-router.route('/:time_unix')
+app.get('/api/:time', function(req, res) {
+    var time = req.params.time;
+    console.log('time:');
+    console.log(time);
+    console.log(req.params.time);
+    res.json(convert(time));
+})
 
-    //get unix time
-    .get(function(req, res) {
-        Time.findById(req.params.time_unix, function(err, time) {
-            if(err) 
-                res.send(err);
-            
-            res.json(time);
-        });
-    });
-
-// routes that end in natural
-router.route('/:time_natural')
-    .get(function(req, res) {
-        Time.findById(req.params.time_natural, function(err, time) {
-            if(err) 
-                res.send(err);
-            
-            res.json(time);
-        })
-    });
-
-app.use('/api/', router);
+app.use('/', router);
 
 // START SERVER
 // ===================
