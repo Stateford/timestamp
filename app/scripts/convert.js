@@ -8,9 +8,17 @@ module.exports = function(time) {
         var minutes = "0" + date.getMinutes();
         var seconds = "0" + date.getSeconds();
         
-        var natural = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        console.log(date.toGMTString());
+        console.log(date.toLocaleString());
+        
+        var natural = date.toGMTString();
         
         return { "unix": time, "natural": natural };
+    }
+    else if(isNaN(numCheck)) {
+        var date = new Date(time);
+        var unix = date.getTime()/1000;
+        return { "unix": unix, "natural": time };
     }
     else {
         return null;

@@ -32,11 +32,11 @@ router.get('/', function(req, res) {
 
 app.get('/api/:time', function(req, res) {
     var time = req.params.time;
-    console.log('time:');
-    console.log(time);
-    console.log(req.params.time);
     res.json(convert(time));
 })
+
+// set the static files location
+app.use(express.static(__dirname + '/public')); 
 
 app.use('/', router);
 
