@@ -15,7 +15,7 @@ module.exports = function(time) {
         
         return { "unix": time, "natural": natural };
     }
-    else if(isNaN(numCheck)) {
+    else if(isNaN(numCheck) && isNaN(Date.parse(time)) === false) {
         var date = new Date(time);
         var unix = date.getTime()/1000;
         return { "unix": unix, "natural": time };
